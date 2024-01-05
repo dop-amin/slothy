@@ -38,6 +38,7 @@ for uarch in M55 M85; do
         -c inputs_are_outputs                                                    \
         -l flt_radix4_fft_loop_start                                             \
         -c timeout=300                                                           \
+        -c with_llvm_mca                                                         \
         -r floatingpoint_radix4_fft_symbolic,floatingpoint_radix4_fft_opt_$uarch \
         -o ${OPT_DIR}/helium/flt_r4_fft/floatingpoint_radix4_fft_opt_$uarch.s    \
         $REDIRECT_OUTPUT;
@@ -66,6 +67,7 @@ for uarch in M55 M85; do
         -c timeout=300                                                     \
         -r fixedpoint_radix4_fft_symbolic,fixedpoint_radix4_fft_opt_$uarch \
         -c sw_pipelining.minimize_overlapping                              \
+        -c with_llvm_mca                                                   \
         -o ${OPT_DIR}/helium/fx_r4_fft/fixedpoint_radix4_fft_opt_$uarch.s  \
         $REDIRECT_OUTPUT;
 done

@@ -851,16 +851,38 @@ class CPreprocessor():
     @staticmethod
     def unfold(header, body, gcc):
         """Runs the concatenation of header and body through the preprocessor"""
-        code = header + [CPreprocessor.magic_string] + body
+
+        code = SourceLine.write_multiline(
+            header + [SourceLine(CPreprocessor.magic_string)] + body)
+
+        # Ignore #include's until -I can be configured
+        code = code.replace("#include","//#include")
 
         r = subprocess.run([gcc, "-E", "-x", "assembler-with-cpp","-"],
-                           input='\n'.join(code), text=True, capture_output=True, check=True)
+                           input=code, text=True, capture_output=True, check=True)
 
         unfolded_code = r.stdout.split('\n')
         magic_idx = unfolded_code.index(CPreprocessor.magic_string)
         unfolded_code = unfolded_code[magic_idx+1:]
 
-        return unfolded_code
+        return [SourceLine(r) for r in unfolded_code]
+
+class LLVM_Mca():
+    """Helper class for the application of the LLVM MCA tool"""
+
+    @staticmethod
+    def run(header, body, mca_binary, arch, cpu):
+        """Runs LLVM-MCA tool on body and returns result as array of strings"""
+
+        LLVM_MCA_BEGIN = SourceLine("").add_comment("LLVM-MCA-BEGIN")
+        LLVM_MCA_END = SourceLine("").add_comment("LLVM-MCA-END")
+
+        data = SourceLine.write_multiline(header + [LLVM_MCA_BEGIN] + body + [LLVM_MCA_END])
+        r = subprocess.run([mca_binary, f"--mcpu={cpu}", f"--march={arch}",
+                            "--instruction-info=0", "--dispatch-stats=0", "--timeline=1", "--timeline-max-cycles=0"],
+                            input=data, text=True, capture_output=True, check=True)
+        res = r.stdout.split('\n')
+        return res
 
 class Permutation():
     """Helper class for manipulating permutations"""

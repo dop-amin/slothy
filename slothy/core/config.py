@@ -82,13 +82,13 @@ class Config(NestedPrint, LockAttributes):
     @property
     def selfcheck(self):
         """Indicates whether SLOTHY performs a self-check on the optimization result.
-        
+
         The selfcheck confirms that the scheduling permutation found by SLOTHY yields
         an isomorphism between the data flow graphs of the original and optimized code.
 
         WARNING: Do not unset this option unless you know what you are doing.
             It is vital in catching bugs in the model generation early.
-        
+
         WARNING: The selfcheck is not a formal verification of SLOTHY's output!
             There are at least two classes of bugs uncaught by the selfcheck:
 
@@ -122,10 +122,10 @@ class Config(NestedPrint, LockAttributes):
     @property
     def allow_useless_instructions(self):
         """Indicates whether SLOTHY should abort upon encountering unused instructions.
-        
+
         SLOTHY requires explicit knowledge of the intended output registers of its
-        input assembly. If this option is set, and an instruction is encountered which 
-        writes to a register which (a) is not an output register, (b) is not used by 
+        input assembly. If this option is set, and an instruction is encountered which
+        writes to a register which (a) is not an output register, (b) is not used by
         any later instruction, then SLOTHY will flag this instruction and abort.
 
         The reason for this behaviour is that such unused instructions are usually
@@ -141,15 +141,15 @@ class Config(NestedPrint, LockAttributes):
     @property
     def variable_size(self):
         """Model number of stalls as a parameter in the constraint model.
-        
+
         If this is set, one-shot SLOTHY optimization will make the number of stalls
         flexible in the model and, by default, task the underlying constraint solver
         to minimize it.
-        
+
         If this is not set, one-shot SLOTHY optimizations will search for solutions
         with a fixed number of stalls, and an external binary search be used to
         find the minimum number of stalls.
-        
+
         For small-to-medium sizes assembly input, this option should be set, and will
         lead to faster optimization. For large assembly input, the user should experiment
         and consider unsetting it to reduce model complexity.
@@ -159,7 +159,7 @@ class Config(NestedPrint, LockAttributes):
     @property
     def keep_tags(self):
         """Indicates whether tags in the input source should be kept or removed.
-        
+
         Tags include pre/core/post or ordering annotations that usually become meaningless
         post-optimization. However, for preprocessing runs that do not reorder code, it makes
         sense to keep them."""
@@ -167,7 +167,7 @@ class Config(NestedPrint, LockAttributes):
 
     @property
     def ignore_tags(self):
-        """Indicates whether tags in the input source should be ignored."""        
+        """Indicates whether tags in the input source should be ignored."""
         return self._ignore_tags
 
     @property
@@ -291,11 +291,28 @@ class Config(NestedPrint, LockAttributes):
         return self._with_preprocessor
 
     @property
+    def with_llvm_mca(self):
+        """Indicates whether LLVM MCA should be run prior and after optimimization
+        to obtain approximate performance data based on LLVM's scheduling models.
+
+        If this is set, both Config.llvm_mca_binary and Config.compiler_binary
+        need to be set.
+        """
+        return self._with_llvm_mca
+
+    @property
     def compiler_binary(self):
         """The compiler binary to be used.
 
-        This is only relevant of `with_preprocessor` is set."""
+        This is only relevant if `with_preprocessor` or `with_llvm_mca` are set."""
         return self._compiler_binary
+
+    @property
+    def llvm_mca_binary(self):
+        """The llvm-mca binary to be used for estimated performance annotations
+
+        This is only relevant if `with_llvm_mca` is set."""
+        return self._llvm_mca_binary
 
     @property
     def timeout(self):
@@ -313,9 +330,9 @@ class Config(NestedPrint, LockAttributes):
     @property
     def do_address_fixup(self):
         """Indicates whether post-optimization address fixup should be conducted.
-        
+
         SLOTHY's modelling of post-load/store address increments is deliberately
-        inaccurate to allow for reordering of such instructions leveraging commutativity 
+        inaccurate to allow for reordering of such instructions leveraging commutativity
         relations such as:
 
         ```
@@ -323,11 +340,11 @@ class Config(NestedPrint, LockAttributes):
         ```
 
         When such reordering happens, a "post-optimization address fixup" of immediate
-        load/store offsets is necessary. See also section "Address offset rewrites" in 
+        load/store offsets is necessary. See also section "Address offset rewrites" in
         the SLOTHY paper.
 
         Disabling this option will skip post-optimization address fixup and put the
-        burden of post-optimization address fixup on the user. 
+        burden of post-optimization address fixup on the user.
         Disabling this option does NOT tighten the constraint model to forbid reorderings
         such as the above.
 
@@ -881,7 +898,7 @@ class Config(NestedPrint, LockAttributes):
         def ext_bsearch_remember_successes(self):
             """When using an external binary search, hint previous successful
                 optimiation.
-                
+
             See also Config.variable_size."""
             return self._ext_bsearch_remember_successes
 
@@ -943,6 +960,7 @@ class Config(NestedPrint, LockAttributes):
         self._split_heuristic_preprocess_naive_interleaving_by_latency = False
 
         self._compiler_binary = "gcc"
+        self._llvm_mca_binary = "llvm-mca"
 
         self.keep_tags = True
         self.ignore_tags = False
@@ -950,6 +968,7 @@ class Config(NestedPrint, LockAttributes):
         self._do_address_fixup = True
 
         self._with_preprocessor = False
+        self._with_llvm_mca = False
         self._max_solutions = 64
         self._timeout = None
         self._retry_timeout = None
@@ -1027,9 +1046,15 @@ class Config(NestedPrint, LockAttributes):
     @with_preprocessor.setter
     def with_preprocessor(self, val):
         self._with_preprocessor = val
+    @with_llvm_mca.setter
+    def with_llvm_mca(self, val):
+        self._with_llvm_mca = val
     @compiler_binary.setter
     def compiler_binary(self, val):
         self._compiler_binary = val
+    @llvm_mca_binary.setter
+    def llvm_mca_binary(self, val):
+        self._llvm_mca_binary = val
     @timeout.setter
     def timeout(self, val):
         self._timeout = val
