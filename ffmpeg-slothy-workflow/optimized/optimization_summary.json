@@ -1,0 +1,18 @@
+{
+  "successful": [],
+  "failed": [
+    {
+      "status": "failed",
+      "function": "ff_aac_quant_bands_neon",
+      "target": "a55",
+      "error": "Couldn't parse scvtf           s2, w5\nYou may need to add support for a new instruction (variant)?",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/user/slothy/ffmpeg-slothy-workflow/scripts/optimize_with_slothy.py\", line 162, in optimize_function\n    slothy_instance.optimize()\n  File \"/home/user/slothy/slothy/core/slothy.py\", line 397, in optimize\n    early, core, late, num_exceptional = Heuristics.periodic(body, logger, c)\n                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/user/slothy/slothy/core/heuristics.py\", line 373, in periodic\n    res = Heuristics.linear(body, logger=logger, conf=conf)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/user/slothy/slothy/core/heuristics.py\", line 460, in linear\n    return Heuristics.optimize_binsearch(body, logger.getChild(\"slothy\"), conf)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/user/slothy/slothy/core/heuristics.py\", line 145, in optimize_binsearch\n    return Heuristics.optimize_binsearch_internal(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/user/slothy/slothy/core/heuristics.py\", line 290, in optimize_binsearch_internal\n    success = core.optimize(source, **kwargs)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/user/slothy/slothy/core/core.py\", line 1643, in optimize\n    self._load_source(source, prefix_len=prefix_len, suffix_len=suffix_len)\n  File \"/home/user/slothy/slothy/core/core.py\", line 1757, in _load_source\n    self._model.tree = DFG(\n                       ^^^^\n  File \"/home/user/slothy/slothy/core/dataflow.py\", line 720, in __init__\n    self.src = self._parse_source(src)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/user/slothy/slothy/core/dataflow.py\", line 798, in _parse_source\n    return list(map(self._parse_line, src_lines))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/user/slothy/slothy/core/dataflow.py\", line 787, in _parse_line\n    insts = self.arch.Instruction.parser(line)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/user/slothy/slothy/targets/aarch64/aarch64_neon.py\", line 901, in parser\n    raise Instruction.ParsingException(\nslothy.targets.aarch64.aarch64_neon.Instruction.ParsingException: Couldn't parse scvtf           s2, w5\nYou may need to add support for a new instruction (variant)?\n"
+    }
+  ],
+  "missing_instructions": [],
+  "stats": {
+    "total_attempts": 1,
+    "successful": 0,
+    "failed": 1
+  }
+}

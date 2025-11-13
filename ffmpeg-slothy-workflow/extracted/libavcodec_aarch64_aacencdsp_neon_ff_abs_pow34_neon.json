@@ -1,0 +1,10 @@
+{
+  "source_file": "libavcodec/aarch64/aacencdsp_neon.S",
+  "function_name": "ff_abs_pow34_neon",
+  "instruction_count": 9,
+  "has_loop": true,
+  "line_start": 22,
+  "line_end": 33,
+  "loop_start_label": "1",
+  "loop_end_label": "1_end"
+}

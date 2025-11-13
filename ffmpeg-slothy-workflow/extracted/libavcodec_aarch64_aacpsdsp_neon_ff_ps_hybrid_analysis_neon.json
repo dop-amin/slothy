@@ -1,0 +1,8 @@
+{
+  "source_file": "libavcodec/aarch64/aacpsdsp_neon.S",
+  "function_name": "ff_ps_hybrid_analysis_neon",
+  "instruction_count": 44,
+  "has_loop": true,
+  "line_start": 102,
+  "line_end": 147
+}

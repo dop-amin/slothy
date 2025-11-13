@@ -1,0 +1,8 @@
+{
+  "source_file": "libavcodec/aarch64/aacpsdsp_neon.S",
+  "function_name": "ff_ps_stereo_interpolate_ipdopd_neon",
+  "instruction_count": 31,
+  "has_loop": true,
+  "line_start": 68,
+  "line_end": 100
+}

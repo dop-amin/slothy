@@ -1,0 +1,8 @@
+{
+  "source_file": "libavcodec/aarch64/aacencdsp_neon.S",
+  "function_name": "ff_aac_quant_bands_neon",
+  "instruction_count": 17,
+  "has_loop": false,
+  "line_start": 35,
+  "line_end": 62
+}

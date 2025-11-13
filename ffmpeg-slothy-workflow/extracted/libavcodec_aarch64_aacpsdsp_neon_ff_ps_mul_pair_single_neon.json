@@ -1,0 +1,8 @@
+{
+  "source_file": "libavcodec/aarch64/aacpsdsp_neon.S",
+  "function_name": "ff_ps_mul_pair_single_neon",
+  "instruction_count": 10,
+  "has_loop": true,
+  "line_start": 33,
+  "line_end": 44
+}
