@@ -1,0 +1,8 @@
+{
+  "source_file": "libavcodec/aarch64/ac3dsp_neon.S",
+  "function_name": "ff_float_to_fixed24_neon",
+  "instruction_count": 11,
+  "has_loop": true,
+  "line_start": 53,
+  "line_end": 65
+}

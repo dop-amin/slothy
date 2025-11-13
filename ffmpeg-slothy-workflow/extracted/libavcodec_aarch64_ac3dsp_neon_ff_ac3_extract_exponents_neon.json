@@ -1,0 +1,8 @@
+{
+  "source_file": "libavcodec/aarch64/ac3dsp_neon.S",
+  "function_name": "ff_ac3_extract_exponents_neon",
+  "instruction_count": 11,
+  "has_loop": true,
+  "line_start": 39,
+  "line_end": 51
+}

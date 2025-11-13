@@ -1,0 +1,8 @@
+{
+  "source_file": "libavcodec/aarch64/ac3dsp_neon.S",
+  "function_name": "ff_ac3_sum_square_butterfly_int32_neon",
+  "instruction_count": 19,
+  "has_loop": true,
+  "line_start": 67,
+  "line_end": 87
+}

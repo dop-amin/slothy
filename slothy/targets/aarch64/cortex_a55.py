@@ -168,6 +168,25 @@ from slothy.targets.aarch64.aarch64_neon import (
     vuaddlv_sform,
     fmov_s_form,  # from double/single to gen reg
     cmp,
+    # Floating-point instructions
+    fadd,
+    faddp,
+    fsub,
+    fmul,
+    fmla,
+    fmls,
+    fneg,
+    fabs,
+    fmin,
+    fsqrt,
+    fcvtzs,
+    scvtf,
+    # NEON data movement
+    vdup_lane,
+    vmovi_lsl,
+    # Multi-register load/store
+    q_ld1_2_with_postinc,
+    q_st1_2_with_postinc,
 )
 
 issue_rate = 2
@@ -427,6 +446,15 @@ execution_units = {
     # NOTE: AESE/AESMC and AESD/AESIMC pairs can be dual-issued on A55 but this
     # is not modeled
     AESInstruction: [[ExecutionUnit.VEC0, ExecutionUnit.VEC1]],
+    # Floating-point instructions
+    (fadd, faddp, fsub, fmul, fmla, fmls, fneg, fabs, fmin, fsqrt, fcvtzs, scvtf): [
+        [ExecutionUnit.VEC0, ExecutionUnit.VEC1]
+    ],
+    # NEON data movement
+    (vdup_lane, vmovi_lsl): [[ExecutionUnit.VEC0, ExecutionUnit.VEC1]],
+    # Multi-register load/store
+    (q_ld1_2_with_postinc): ExecutionUnit.SCALAR_LOAD,
+    (q_st1_2_with_postinc): ExecutionUnit.SCALAR_STORE,
 }
 
 inverse_throughput = {
@@ -507,6 +535,14 @@ inverse_throughput = {
     AArch64ConditionalCompare: 1,
     AESInstruction: 1,
     fmov_s_form: 1,  # from double/single to gen reg
+    # Floating-point instructions
+    (fadd, faddp, fsub, fneg, fabs, fmin, fcvtzs, scvtf): 1,
+    (fmul, fmla, fmls): 1,
+    (fsqrt): 8,  # fsqrt is significantly slower
+    # NEON data movement
+    (vdup_lane, vmovi_lsl): 1,
+    # Multi-register load/store (2 registers = 2 cycles)
+    (q_ld1_2_with_postinc, q_st1_2_with_postinc): 2,
 }
 
 default_latencies = {
@@ -598,6 +634,15 @@ default_latencies = {
     # is not modeled
     AESInstruction: 2,
     fmov_s_form: 1,  # from double/single to gen reg
+    # Floating-point instructions (from ARM Cortex-A55 SWOG)
+    (fadd, faddp, fsub, fneg, fabs, fmin, fcvtzs, scvtf): 3,
+    (fmul, fmla, fmls): 4,
+    (fsqrt): 16,  # fsqrt takes much longer
+    # NEON data movement
+    (vdup_lane, vmovi_lsl): 2,
+    # Multi-register load/store
+    (q_ld1_2_with_postinc): 4,  # same as Ldr_Q
+    (q_st1_2_with_postinc): 4,  # same as Str_Q
 }
 
 

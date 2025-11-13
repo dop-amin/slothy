@@ -1,0 +1,8 @@
+{
+  "source_file": "libavcodec/aarch64/ac3dsp_neon.S",
+  "function_name": "ff_ac3_exponent_min_neon",
+  "instruction_count": 13,
+  "has_loop": true,
+  "line_start": 23,
+  "line_end": 37
+}

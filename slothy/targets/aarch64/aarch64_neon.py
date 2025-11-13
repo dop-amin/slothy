@@ -1369,6 +1369,99 @@ class vsub(AArch64Instruction):
 
 ############################
 #                          #
+# Floating-point instructions
+#                          #
+############################
+
+
+class fadd(AArch64Instruction):
+    """Floating-point add (vector)"""
+    pattern = "fadd <Vd>.<dt>, <Vn>.<dt>, <Vm>.<dt>"
+    inputs = ["Vn", "Vm"]
+    outputs = ["Vd"]
+
+
+class faddp(AArch64Instruction):
+    """Floating-point add pairwise (vector)"""
+    pattern = "faddp <Vd>.<dt>, <Vn>.<dt>, <Vm>.<dt>"
+    inputs = ["Vn", "Vm"]
+    outputs = ["Vd"]
+
+
+class fsub(AArch64Instruction):
+    """Floating-point subtract (vector)"""
+    pattern = "fsub <Vd>.<dt>, <Vn>.<dt>, <Vm>.<dt>"
+    inputs = ["Vn", "Vm"]
+    outputs = ["Vd"]
+
+
+class fmul(AArch64Instruction):
+    """Floating-point multiply (vector)"""
+    pattern = "fmul <Vd>.<dt>, <Vn>.<dt>, <Vm>.<dt>"
+    inputs = ["Vn", "Vm"]
+    outputs = ["Vd"]
+
+
+class fmla(AArch64Instruction):
+    """Floating-point multiply-add (vector)"""
+    pattern = "fmla <Vd>.<dt>, <Vn>.<dt>, <Vm>.<dt>"
+    inputs = ["Vd", "Vn", "Vm"]
+    in_outs = ["Vd"]
+    outputs = []
+
+
+class fmls(AArch64Instruction):
+    """Floating-point multiply-subtract (vector)"""
+    pattern = "fmls <Vd>.<dt>, <Vn>.<dt>, <Vm>.<dt>"
+    inputs = ["Vd", "Vn", "Vm"]
+    in_outs = ["Vd"]
+    outputs = []
+
+
+class fneg(AArch64Instruction):
+    """Floating-point negate (vector)"""
+    pattern = "fneg <Vd>.<dt>, <Vn>.<dt>"
+    inputs = ["Vn"]
+    outputs = ["Vd"]
+
+
+class fabs(AArch64Instruction):
+    """Floating-point absolute value (vector)"""
+    pattern = "fabs <Vd>.<dt>, <Vn>.<dt>"
+    inputs = ["Vn"]
+    outputs = ["Vd"]
+
+
+class fmin(AArch64Instruction):
+    """Floating-point minimum (vector)"""
+    pattern = "fmin <Vd>.<dt>, <Vn>.<dt>, <Vm>.<dt>"
+    inputs = ["Vn", "Vm"]
+    outputs = ["Vd"]
+
+
+class fsqrt(AArch64Instruction):
+    """Floating-point square root (vector)"""
+    pattern = "fsqrt <Vd>.<dt>, <Vn>.<dt>"
+    inputs = ["Vn"]
+    outputs = ["Vd"]
+
+
+class fcvtzs(AArch64Instruction):
+    """Floating-point convert to signed integer (vector)"""
+    pattern = "fcvtzs <Vd>.<dt>, <Vn>.<dt>"
+    inputs = ["Vn"]
+    outputs = ["Vd"]
+
+
+class scvtf(AArch64Instruction):
+    """Signed convert to floating-point (scalar)"""
+    pattern = "scvtf <Sd>, <Wn>"
+    inputs = ["Wn"]
+    outputs = ["Sd"]
+
+
+############################
+#                          #
 # Some LSU instructions    #
 #                          #
 ############################
@@ -1694,6 +1787,25 @@ class q_ld1_with_postinc(Ldr_Q):
         obj.increment = obj.immediate
         obj.pre_index = None
         obj.addr = obj.args_in_out[0]
+        return obj
+
+
+class q_ld1_2_with_postinc(Ldp_Q):
+    """LD1 with 2 registers and post-increment"""
+    pattern = "ld1 {<Va>.<dt>, <Vb>.<dt>}, [<Xc>], <imm>"
+    in_outs = ["Xc"]
+    outputs = ["Va", "Vb"]
+
+    @classmethod
+    def make(cls, src):
+        obj = AArch64Instruction.build(cls, src)
+        obj.increment = obj.immediate
+        obj.pre_index = None
+        obj.addr = obj.args_in_out[0]
+
+        obj.args_out_combinations = [
+            ([0, 1], [[f"v{i}", f"v{i+1}"] for i in range(0, 31)])
+        ]
         return obj
 
 
@@ -3079,6 +3191,12 @@ class vmovi(AArch64Instruction):
     outputs = ["Vd"]
 
 
+class vmovi_lsl(AArch64Instruction):
+    """Move immediate with left shift"""
+    pattern = "movi <Vd>.<dt>, <imm>, lsl <shift>"
+    outputs = ["Vd"]
+
+
 class vxtn(AArch64Instruction):
     pattern = "xtn <Vd>.<dt0>, <Va>.<dt1>"
     inputs = ["Va"]
@@ -3458,6 +3576,13 @@ class vmls_lane(Vmla):
 class vdup(AArch64Instruction):
     pattern = "dup <Vd>.<dt>, <Xa>"
     inputs = ["Xa"]
+    outputs = ["Vd"]
+
+
+class vdup_lane(AArch64Instruction):
+    """Duplicate vector element to vector"""
+    pattern = "dup <Vd>.<dt>, <Vn>.<T>[<idx>]"
+    inputs = ["Vn"]
     outputs = ["Vd"]
 
 

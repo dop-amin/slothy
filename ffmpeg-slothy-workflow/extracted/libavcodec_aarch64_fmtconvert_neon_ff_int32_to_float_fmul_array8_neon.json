@@ -1,0 +1,8 @@
+{
+  "source_file": "libavcodec/aarch64/fmtconvert_neon.S",
+  "function_name": "ff_int32_to_float_fmul_array8_neon",
+  "instruction_count": 28,
+  "has_loop": true,
+  "line_start": 44,
+  "line_end": 75
+}

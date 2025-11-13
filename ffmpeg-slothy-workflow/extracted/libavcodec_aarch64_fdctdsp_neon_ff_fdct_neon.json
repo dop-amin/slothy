@@ -1,0 +1,8 @@
+{
+  "source_file": "libavcodec/aarch64/fdctdsp_neon.S",
+  "function_name": "ff_fdct_neon",
+  "instruction_count": 195,
+  "has_loop": false,
+  "line_start": 115,
+  "line_end": 354
+}

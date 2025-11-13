@@ -56,5 +56,69 @@
     "has_loop": true,
     "line_start": 102,
     "line_end": 147
+  },
+  "libavcodec_aarch64_ac3dsp_neon_ff_ac3_exponent_min_neon": {
+    "source_file": "libavcodec/aarch64/ac3dsp_neon.S",
+    "function_name": "ff_ac3_exponent_min_neon",
+    "instruction_count": 13,
+    "has_loop": true,
+    "line_start": 23,
+    "line_end": 37
+  },
+  "libavcodec_aarch64_ac3dsp_neon_ff_ac3_extract_exponents_neon": {
+    "source_file": "libavcodec/aarch64/ac3dsp_neon.S",
+    "function_name": "ff_ac3_extract_exponents_neon",
+    "instruction_count": 11,
+    "has_loop": true,
+    "line_start": 39,
+    "line_end": 51
+  },
+  "libavcodec_aarch64_ac3dsp_neon_ff_float_to_fixed24_neon": {
+    "source_file": "libavcodec/aarch64/ac3dsp_neon.S",
+    "function_name": "ff_float_to_fixed24_neon",
+    "instruction_count": 11,
+    "has_loop": true,
+    "line_start": 53,
+    "line_end": 65
+  },
+  "libavcodec_aarch64_ac3dsp_neon_ff_ac3_sum_square_butterfly_int32_neon": {
+    "source_file": "libavcodec/aarch64/ac3dsp_neon.S",
+    "function_name": "ff_ac3_sum_square_butterfly_int32_neon",
+    "instruction_count": 19,
+    "has_loop": true,
+    "line_start": 67,
+    "line_end": 87
+  },
+  "libavcodec_aarch64_ac3dsp_neon_ff_ac3_sum_square_butterfly_float_neon": {
+    "source_file": "libavcodec/aarch64/ac3dsp_neon.S",
+    "function_name": "ff_ac3_sum_square_butterfly_float_neon",
+    "instruction_count": 19,
+    "has_loop": true,
+    "line_start": 89,
+    "line_end": 109
+  },
+  "libavcodec_aarch64_fdctdsp_neon_ff_fdct_neon": {
+    "source_file": "libavcodec/aarch64/fdctdsp_neon.S",
+    "function_name": "ff_fdct_neon",
+    "instruction_count": 195,
+    "has_loop": false,
+    "line_start": 115,
+    "line_end": 354
+  },
+  "libavcodec_aarch64_fmtconvert_neon_ff_int32_to_float_fmul_scalar_neon": {
+    "source_file": "libavcodec/aarch64/fmtconvert_neon.S",
+    "function_name": "ff_int32_to_float_fmul_scalar_neon",
+    "instruction_count": 14,
+    "has_loop": true,
+    "line_start": 25,
+    "line_end": 42
+  },
+  "libavcodec_aarch64_fmtconvert_neon_ff_int32_to_float_fmul_array8_neon": {
+    "source_file": "libavcodec/aarch64/fmtconvert_neon.S",
+    "function_name": "ff_int32_to_float_fmul_array8_neon",
+    "instruction_count": 28,
+    "has_loop": true,
+    "line_start": 44,
+    "line_end": 75
   }
 }
