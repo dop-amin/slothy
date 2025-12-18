@@ -54,6 +54,14 @@ Classes
      -
    * - :py:obj:`vsub <slothy.targets.aarch64.aarch64_neon.vsub>`
      -
+   * - :py:obj:`Ldr_D <slothy.targets.aarch64.aarch64_neon.Ldr_D>`
+     -
+   * - :py:obj:`d_ldr <slothy.targets.aarch64.aarch64_neon.d_ldr>`
+     -
+   * - :py:obj:`d_ldr_with_postinc <slothy.targets.aarch64.aarch64_neon.d_ldr_with_postinc>`
+     -
+   * - :py:obj:`d_ldr_with_inc_writeback <slothy.targets.aarch64.aarch64_neon.d_ldr_with_inc_writeback>`
+     -
    * - :py:obj:`Ldr_Q <slothy.targets.aarch64.aarch64_neon.Ldr_Q>`
      -
    * - :py:obj:`Ldp_Q <slothy.targets.aarch64.aarch64_neon.Ldp_Q>`
@@ -354,6 +362,8 @@ Classes
      -
    * - :py:obj:`cset <slothy.targets.aarch64.aarch64_neon.cset>`
      -
+   * - :py:obj:`fcsel <slothy.targets.aarch64.aarch64_neon.fcsel>`
+     -
    * - :py:obj:`cmn <slothy.targets.aarch64.aarch64_neon.cmn>`
      -
    * - :py:obj:`cmn_imm <slothy.targets.aarch64.aarch64_neon.cmn_imm>`
@@ -452,9 +462,6 @@ Classes
      -
    * - :py:obj:`vqdmulh_lane <slothy.targets.aarch64.aarch64_neon.vqdmulh_lane>`
      -
-   * - :py:obj:`fcsel_dform <slothy.targets.aarch64.aarch64_neon.fcsel_dform>`
-     - .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.fcsel_dform
-          :summary:
    * - :py:obj:`Vins <slothy.targets.aarch64.aarch64_neon.Vins>`
      -
    * - :py:obj:`vins_d <slothy.targets.aarch64.aarch64_neon.vins_d>`
@@ -1403,6 +1410,92 @@ API
       :value: ['Va']
 
       .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.vsub.outputs
+
+.. py:class:: Ldr_D(pattern, *, inputs=None, outputs=None, in_outs=None, modifiesFlags=False, dependsOnFlags=False)
+   :canonical: slothy.targets.aarch64.aarch64_neon.Ldr_D
+
+   Bases: :py:obj:`slothy.targets.aarch64.aarch64_neon.AArch64Instruction`
+
+.. py:class:: d_ldr(pattern, *, inputs=None, outputs=None, in_outs=None, modifiesFlags=False, dependsOnFlags=False)
+   :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr
+
+   Bases: :py:obj:`slothy.targets.aarch64.aarch64_neon.Ldr_D`
+
+   .. py:attribute:: pattern
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr.pattern
+      :value: 'ldr <Da>, [<Xc>]'
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.d_ldr.pattern
+
+   .. py:attribute:: inputs
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr.inputs
+      :value: ['Xc']
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.d_ldr.inputs
+
+   .. py:attribute:: outputs
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr.outputs
+      :value: ['Da']
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.d_ldr.outputs
+
+   .. py:method:: make(src)
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr.make
+      :classmethod:
+
+.. py:class:: d_ldr_with_postinc(pattern, *, inputs=None, outputs=None, in_outs=None, modifiesFlags=False, dependsOnFlags=False)
+   :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr_with_postinc
+
+   Bases: :py:obj:`slothy.targets.aarch64.aarch64_neon.Ldr_D`
+
+   .. py:attribute:: pattern
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr_with_postinc.pattern
+      :value: 'ldr <Da>, [<Xc>], <imm>'
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.d_ldr_with_postinc.pattern
+
+   .. py:attribute:: in_outs
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr_with_postinc.in_outs
+      :value: ['Xc']
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.d_ldr_with_postinc.in_outs
+
+   .. py:attribute:: outputs
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr_with_postinc.outputs
+      :value: ['Da']
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.d_ldr_with_postinc.outputs
+
+   .. py:method:: make(src)
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr_with_postinc.make
+      :classmethod:
+
+.. py:class:: d_ldr_with_inc_writeback(pattern, *, inputs=None, outputs=None, in_outs=None, modifiesFlags=False, dependsOnFlags=False)
+   :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr_with_inc_writeback
+
+   Bases: :py:obj:`slothy.targets.aarch64.aarch64_neon.Ldr_D`
+
+   .. py:attribute:: pattern
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr_with_inc_writeback.pattern
+      :value: 'ldr <Da>, [<Xc>, <imm>]!'
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.d_ldr_with_inc_writeback.pattern
+
+   .. py:attribute:: in_outs
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr_with_inc_writeback.in_outs
+      :value: ['Xc']
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.d_ldr_with_inc_writeback.in_outs
+
+   .. py:attribute:: outputs
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr_with_inc_writeback.outputs
+      :value: ['Da']
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.d_ldr_with_inc_writeback.outputs
+
+   .. py:method:: make(src)
+      :canonical: slothy.targets.aarch64.aarch64_neon.d_ldr_with_inc_writeback.make
+      :classmethod:
 
 .. py:class:: Ldr_Q(pattern, *, inputs=None, outputs=None, in_outs=None, modifiesFlags=False, dependsOnFlags=False)
    :canonical: slothy.targets.aarch64.aarch64_neon.Ldr_Q
@@ -2916,6 +3009,10 @@ API
       :value: ['Wd']
 
       .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.ldr_sxtw_wform.outputs
+
+   .. py:method:: make(src)
+      :canonical: slothy.targets.aarch64.aarch64_neon.ldr_sxtw_wform.make
+      :classmethod:
 
 .. py:class:: lsr_wform(pattern, *, inputs=None, outputs=None, in_outs=None, modifiesFlags=False, dependsOnFlags=False)
    :canonical: slothy.targets.aarch64.aarch64_neon.lsr_wform
@@ -5091,6 +5188,35 @@ API
 
       .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.cset.dependsOnFlags
 
+.. py:class:: fcsel(pattern, *, inputs=None, outputs=None, in_outs=None, modifiesFlags=False, dependsOnFlags=False)
+   :canonical: slothy.targets.aarch64.aarch64_neon.fcsel
+
+   Bases: :py:obj:`slothy.targets.aarch64.aarch64_neon.AArch64ConditionalSelect`
+
+   .. py:attribute:: pattern
+      :canonical: slothy.targets.aarch64.aarch64_neon.fcsel.pattern
+      :value: 'fcsel <Dd>, <Dn>, <Dm>, <flag>'
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.fcsel.pattern
+
+   .. py:attribute:: inputs
+      :canonical: slothy.targets.aarch64.aarch64_neon.fcsel.inputs
+      :value: ['Dn', 'Dm']
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.fcsel.inputs
+
+   .. py:attribute:: outputs
+      :canonical: slothy.targets.aarch64.aarch64_neon.fcsel.outputs
+      :value: ['Dd']
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.fcsel.outputs
+
+   .. py:attribute:: dependsOnFlags
+      :canonical: slothy.targets.aarch64.aarch64_neon.fcsel.dependsOnFlags
+      :value: True
+
+      .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.fcsel.dependsOnFlags
+
 .. py:class:: cmn(pattern, *, inputs=None, outputs=None, in_outs=None, modifiesFlags=False, dependsOnFlags=False)
    :canonical: slothy.targets.aarch64.aarch64_neon.cmn
 
@@ -5144,7 +5270,7 @@ API
 
    .. py:attribute:: pattern
       :canonical: slothy.targets.aarch64.aarch64_neon.ldr_const.pattern
-      :value: 'ldr <Xd>, <imm>'
+      :value: 'ldr <Xd>, <literal>'
 
       .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.ldr_const.pattern
 
@@ -6093,24 +6219,6 @@ API
    .. py:method:: make(src)
       :canonical: slothy.targets.aarch64.aarch64_neon.vqdmulh_lane.make
       :classmethod:
-
-.. py:class:: fcsel_dform(*, mnemonic, arg_types_in=None, arg_types_in_out=None, arg_types_out=None)
-   :canonical: slothy.targets.aarch64.aarch64_neon.fcsel_dform
-
-   Bases: :py:obj:`slothy.targets.aarch64.aarch64_neon.Instruction`
-
-   .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.fcsel_dform
-
-   .. rubric:: Initialization
-
-   .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.fcsel_dform.__init__
-
-   .. py:method:: make(src)
-      :canonical: slothy.targets.aarch64.aarch64_neon.fcsel_dform.make
-      :classmethod:
-
-   .. py:method:: write()
-      :canonical: slothy.targets.aarch64.aarch64_neon.fcsel_dform.write
 
 .. py:class:: Vins(pattern, *, inputs=None, outputs=None, in_outs=None, modifiesFlags=False, dependsOnFlags=False)
    :canonical: slothy.targets.aarch64.aarch64_neon.Vins
@@ -7703,7 +7811,7 @@ API
 
    .. py:attribute:: pattern
       :canonical: slothy.targets.aarch64.aarch64_neon.vusra.pattern
-      :value: 'usra <Vd>.<dt0>, <Va>.<dt1>, <imm>'
+      :value: 'usra <Vd>.<dt>, <Va>.<dt>, <imm>'
 
       .. autodoc2-docstring:: slothy.targets.aarch64.aarch64_neon.vusra.pattern
 
