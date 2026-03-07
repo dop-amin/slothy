@@ -46,6 +46,9 @@ import slothy.targets.riscv.xuantie_c908 as Target_C908
 from examples.naive.aarch64.dilithium._example import (
     example_instances as example_instances_aarch64_dilithium,
 )
+from examples.naive.aarch64.ffmpeg._example import (
+    example_instances as example_instances_aarch64_ffmpeg,
+)
 from examples.naive.aarch64.kyber._example import (
     example_instances as example_instances_aarch64_kyber,
 )
@@ -113,6 +116,7 @@ def main():
         + example_instances_armv7m_kyber
         + example_instances_armv8m_crt
         + example_instances_aarch64_dilithium
+        + example_instances_aarch64_ffmpeg
         + example_instances_aarch64_kyber
         + example_instances_aarch64_keccak
         + example_instances_armv8m_kyber

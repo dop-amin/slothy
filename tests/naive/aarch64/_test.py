@@ -325,6 +325,21 @@ class AArch64LoopBranch(OptimizationRunner):
         slothy.optimize_loop("loop2")
 
 
+class AArch64LoopSubsFirst(OptimizationRunner):
+    def __init__(self, var="", arch=AArch64_Neon, target=Target_CortexA55):
+        name = "aarch64_loop_subs_first"
+        super().__init__(
+            infile=name, name=name, rename=True, arch=arch, target=target, base_dir="tests"
+        )
+
+    def core(self, slothy):
+        slothy.config.variable_size = True
+        slothy.config.inputs_are_outputs = True
+        slothy.optimize_loop("start")
+        slothy.config.sw_pipelining.enabled = True
+        slothy.optimize_loop("start2")
+
+
 class AArch64FusionVeor(OptimizationRunner):
     def __init__(self, var="", arch=AArch64_Neon, target=Target_CortexA72):
         name = "aarch64_fusion_veor"
@@ -684,6 +699,7 @@ test_instances = [
     AArch64Ubfx(),
     AArch64LoopLabels(),
     AArch64LoopBranch(),
+    AArch64LoopSubsFirst(),
     AArch64FusionVeor(),
     AArch64CStyleComments(),
     AArch64SelftestAddr(),
