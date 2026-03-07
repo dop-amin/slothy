@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="slothy.targets" href="slothy.targets.html" />
-    <link rel="prev" title="slothy.core.core" href="slothy.core.core.html" /> 
+    <link rel="next" title="slothy.core.slothy" href="slothy.core.slothy.html" />
+    <link rel="prev" title="slothy.core.heuristics" href="slothy.core.heuristics.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -60,9 +60,9 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="slothy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slothy</span></code></a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="slothy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="slothy.targets.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slothy.targets</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="slothy.cli.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slothy.cli</span></code></a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="slothy.core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slothy.core</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="slothy.targets.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slothy.targets</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="slothy.html#submodules">Submodules</a></li>
@@ -990,10 +990,23 @@ in order to find the number of model violations in a piece of code.</p>
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">allow_spills</span></span><a class="headerlink" href="#slothy.core.config.Config.Constraints.allow_spills" title="Link to this definition"></a></dt>
 <dd><p>Allow Slothy to introduce stack spills</p>
 <p>When this option is enabled, Slothy will consider the introduction
-of stack spills to reduce register pressure.</p>
+of stack spills to reduce register pressure. The naming of stack
+locations can be customized using spill_stack_loc_prefix.</p>
 <p>This option should only be disabled if it is known that the input
 assembly suffers from high register pressure. For example, this can
 be the case for symbolic input assembly.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slothy.core.config.Config.Constraints.spill_stack_loc_prefix">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spill_stack_loc_prefix</span></span><a class="headerlink" href="#slothy.core.config.Config.Constraints.spill_stack_loc_prefix" title="Link to this definition"></a></dt>
+<dd><p>Prefix for stack location names in generated assembly when spills
+are enabled.</p>
+<p>When allow_spills is True, this prefix is used to generate unique stack
+location names in the format “{prefix}_{index}” (e.g., “STACK_LOC_0”,
+“STACK_LOC_1”, etc.). This allows customization of naming conventions
+to match project requirements.</p>
+<p>Default: “STACK_LOC”</p>
 </dd></dl>
 
 <dl class="py property">
@@ -1094,8 +1107,8 @@ optimization.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="slothy.core.core.html" class="btn btn-neutral float-left" title="slothy.core.core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="slothy.targets.html" class="btn btn-neutral float-right" title="slothy.targets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="slothy.core.heuristics.html" class="btn btn-neutral float-left" title="slothy.core.heuristics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="slothy.core.slothy.html" class="btn btn-neutral float-right" title="slothy.core.slothy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
