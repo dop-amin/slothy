@@ -336,8 +336,12 @@ class AArch64LoopSubsFirst(OptimizationRunner):
         slothy.config.variable_size = True
         slothy.config.inputs_are_outputs = True
         slothy.optimize_loop("start")
-        slothy.config.sw_pipelining.enabled = True
         slothy.optimize_loop("start2")
+        slothy.optimize_loop("start3")
+        slothy.optimize_loop("start4")
+        slothy.optimize_loop("start5")
+        slothy.config.sw_pipelining.enabled = True
+        slothy.optimize_loop("start6")
 
 
 class AArch64FusionVeor(OptimizationRunner):
