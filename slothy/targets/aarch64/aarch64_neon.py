@@ -3767,6 +3767,12 @@ class mov_vtov_s(AArch64Instruction):
     in_outs = ["Vd"]
 
 
+class mov_vtov_s(AArch64Instruction):
+    pattern = "mov <Vd>.s[<index0>], <Va>.s[<index1>]"
+    inputs = ["Va"]
+    in_outs = ["Vd"]
+
+
 class SHA3Instruction(
     AArch64Instruction
 ):  # pylint: disable=missing-docstring,invalid-name
@@ -3981,6 +3987,18 @@ class fmla_lane(AArch64Instruction):
     pattern = "fmla <Vd>.<dt0>, <Va>.<dt0>, <Vb>.<dt1>[<index>]"
     inputs = ["Va", "Vb"]
     in_outs = ["Vd"]
+
+
+class fmls_vec(AArch64Instruction):
+    pattern = "fmls <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
+    inputs = ["Va", "Vb"]
+    in_outs = ["Vd"]
+
+
+class fmul_lane(AArch64Instruction):
+    pattern = "fmul <Vd>.<dt0>, <Va>.<dt0>, <Vb>.<dt1>[<index>]"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
 
 
 class fmls_vec(AArch64Instruction):
