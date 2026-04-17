@@ -3589,6 +3589,13 @@ class sqxtun(AArch64Instruction):
     outputs = ["Vd"]
 
 
+class sqxtun2(AArch64Instruction):
+    # sqxtun2 writes the upper half of Vd, lower half is retained
+    pattern = "sqxtun2 <Vd>.<dt0>, <Va>.<dt1>"
+    inputs = ["Va"]
+    in_outs = ["Vd"]
+
+
 class sqrshrun(AArch64Instruction):
     pattern = "sqrshrun <Vd>.<dt0>, <Va>.<dt1>, <imm>"
     inputs = ["Va"]
@@ -3597,6 +3604,96 @@ class sqrshrun(AArch64Instruction):
 
 class urhadd(AArch64Instruction):
     pattern = "urhadd <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class uhadd(AArch64Instruction):
+    pattern = "uhadd <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class uabd(AArch64Instruction):
+    pattern = "uabd <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class vneg_vec(AArch64Instruction):
+    pattern = "neg <Vd>.<dt>, <Va>.<dt>"
+    inputs = ["Va"]
+    outputs = ["Vd"]
+
+
+class umin(AArch64Instruction):
+    pattern = "umin <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class umax(AArch64Instruction):
+    pattern = "umax <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class smin(AArch64Instruction):
+    pattern = "smin <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class smax(AArch64Instruction):
+    pattern = "smax <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class uqadd(AArch64Instruction):
+    pattern = "uqadd <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class uqsub(AArch64Instruction):
+    pattern = "uqsub <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class usubw(AArch64Instruction):
+    pattern = "usubw <Vd>.<dt0>, <Va>.<dt0>, <Vb>.<dt1>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class usubw2(AArch64Instruction):
+    pattern = "usubw2 <Vd>.<dt0>, <Va>.<dt0>, <Vb>.<dt1>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class saddw(AArch64Instruction):
+    pattern = "saddw <Vd>.<dt0>, <Va>.<dt0>, <Vb>.<dt1>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class saddw2(AArch64Instruction):
+    pattern = "saddw2 <Vd>.<dt0>, <Va>.<dt0>, <Vb>.<dt1>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class ssubw(AArch64Instruction):
+    pattern = "ssubw <Vd>.<dt0>, <Va>.<dt0>, <Vb>.<dt1>"
+    inputs = ["Va", "Vb"]
+    outputs = ["Vd"]
+
+
+class ssubw2(AArch64Instruction):
+    pattern = "ssubw2 <Vd>.<dt0>, <Va>.<dt0>, <Vb>.<dt1>"
     inputs = ["Va", "Vb"]
     outputs = ["Vd"]
 
@@ -3852,6 +3949,14 @@ class veor(AArch64NeonLogical):
     pattern = "eor <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
     inputs = ["Va", "Vb"]
     outputs = ["Vd"]
+
+
+class vbsl(AArch64Instruction):
+    # Inherits AArch64Instruction directly (not AArch64NeonLogical) to avoid
+    # double-match in the uarch model: BSL has latency 2, unlike AND/EOR (1).
+    pattern = "bsl <Vd>.<dt>, <Va>.<dt>, <Vb>.<dt>"
+    inputs = ["Va", "Vb"]
+    in_outs = ["Vd"]
 
 
 class vbif(AArch64Instruction):
@@ -4339,6 +4444,12 @@ class vushr(VShiftImmediateBasic):
 
 class vuxtl(VShiftImmediateBasic):
     pattern = "uxtl <Vd>.<dt0>, <Va>.<dt1>"
+    inputs = ["Va"]
+    outputs = ["Vd"]
+
+
+class uxtl2(AArch64Instruction):
+    pattern = "uxtl2 <Vd>.<dt0>, <Va>.<dt1>"
     inputs = ["Va"]
     outputs = ["Vd"]
 
