@@ -1,3 +1,4 @@
+.global ff_vector_fmul_reverse_neon
 ff_vector_fmul_reverse_neon:
         sxtw            x3,  w3
         add             x2,  x2,  x3,  lsl #2

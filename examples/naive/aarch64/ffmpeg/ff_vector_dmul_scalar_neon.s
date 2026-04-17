@@ -1,3 +1,4 @@
+.global ff_vector_dmul_scalar_neon
 ff_vector_dmul_scalar_neon:
         dup             v16.2d, v0.d[0]
         ld1             {v0.2d, v1.2d}, [x1], #32

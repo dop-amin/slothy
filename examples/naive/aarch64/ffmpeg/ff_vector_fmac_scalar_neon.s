@@ -1,3 +1,4 @@
+.global ff_vector_fmac_scalar_neon
 ff_vector_fmac_scalar_neon:
         mov             x3,  #-32
 1:

@@ -1,3 +1,4 @@
+.global ff_scalarproduct_float_neon
 ff_scalarproduct_float_neon:
         movi            v2.4s,  #0
 1:

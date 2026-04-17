@@ -1,3 +1,4 @@
+.global ff_vector_fmul_neon
 ff_vector_fmul_neon:
 1:
         subs            w3,  w3,  #16

@@ -1,3 +1,4 @@
+.global ff_butterflies_float_neon
 ff_butterflies_float_neon:
 1:
         ld1             {v0.4s}, [x0]
