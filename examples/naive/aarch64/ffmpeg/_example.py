@@ -417,7 +417,9 @@ class ff_h264_idct_add_neon(OptimizationRunner):
 
     def core(self, slothy):
         slothy.config.variable_size = True
-        slothy.config.reserved_regs = ["x0", "x1", "x30", "sp"]
+        slothy.config.reserved_regs = ["x10", "x1", "x12", "x6", "x5", "x1", 
+                                       "x9", "x7", "x13", "x14", "x4", "x3", 
+                                       "x0", "x30", "sp"]
         slothy.config.constraints.stalls_first_attempt = 32
         slothy.config.constraints.prefer_caller_save_registers = True
         slothy.config.sw_pipelining.minimize_overlapping = False
@@ -441,7 +443,9 @@ class ff_h264_idct8_add_neon(OptimizationRunner):
 
     def core(self, slothy):
         slothy.config.variable_size = True
-        slothy.config.reserved_regs = ["x0", "x1", "x30", "sp"]
+        slothy.config.reserved_regs = ["x10", "x1", "x2", "x12", "x6", "x5", "x1", 
+                                       "x9", "x7", "x13", "x14", "x4", "x3", 
+                                       "x0", "x30", "sp"]
         slothy.config.constraints.prefer_caller_save_registers = True
         slothy.config.sw_pipelining.minimize_overlapping = False
         slothy.config.constraints.stalls_first_attempt = 64
